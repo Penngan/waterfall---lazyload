@@ -1,7 +1,7 @@
 # waterfall---lazyload
 
-##waterfall
+## waterfall
 [预览](https://penngan.github.io/waterfall---lazyload/demo2.html)
 
-##lazyload
+## lazyload
 [预览](https://penngan.github.io/waterfall---lazyload/demo.html)
