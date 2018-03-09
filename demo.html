@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>懒加载</title>
+    <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+    <style>
+        .container {
+            max-width: 610px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .container img {
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="./loading.gif" alt="1" data-src="https://picsum.photos/300/300/?image=1">
+    <img src="./loading.gif" alt="2" data-src="https://picsum.photos/300/300/?image=2">
+    <img src="./loading.gif" alt="3" data-src="https://picsum.photos/300/300/?image=3">
+    <img src="./loading.gif" alt="4" data-src="https://picsum.photos/300/300/?image=4">
+    <img src="./loading.gif" alt="5" data-src="https://picsum.photos/300/300/?image=5">
+    <img src="./loading.gif" alt="6" data-src="https://picsum.photos/300/300/?image=6">
+    <img src="./loading.gif" alt="7" data-src="https://picsum.photos/300/300/?image=7">
+    <img src="./loading.gif" alt="8" data-src="https://picsum.photos/300/300/?image=8">
+    <img src="./loading.gif" alt="9" data-src="https://picsum.photos/300/300/?image=9">
+    <img src="./loading.gif" alt="10" data-src="https://picsum.photos/300/300/?image=10">
+    <img src="./loading.gif" alt="11" data-src="https://picsum.photos/300/300/?image=11">
+    <img src="./loading.gif" alt="12" data-src="https://picsum.photos/300/300/?image=12">
+    <img src="./loading.gif" alt="13" data-src="https://picsum.photos/300/300/?image=13">
+    <img src="./loading.gif" alt="14" data-src="https://picsum.photos/300/300/?image=14">
+    <img src="./loading.gif" alt="15" data-src="https://picsum.photos/300/300/?image=15">
+    <img src="./loading.gif" alt="16" data-src="https://picsum.photos/300/300/?image=16">
+    <img src="./loading.gif" alt="17" data-src="https://picsum.photos/300/300/?image=17">
+    <img src="./loading.gif" alt="18" data-src="https://picsum.photos/300/300/?image=18">
+    <img src="./loading.gif" alt="19" data-src="https://picsum.photos/300/300/?image=19">
+    <img src="./loading.gif" alt="20" data-src="https://picsum.photos/300/300/?image=20">
+</div>
+<script>
+    check()
+    var timer 
+   //函数节流
+    $(window).on('scroll',function(){
+        if(timer){
+            clearTimeout(timer)
+        }
+        timer =setTimeout(function(){
+            check()
+        },500) 
+    })
+
+    function check(){
+        $('.container img').not('[data-isloaded]').each(function(){
+            if(isShow($(this))){
+                loadImg($(this))
+            }
+        })
+    }
+    function isShow($node){
+        return $node.offset().top <= $(window).height() + $(window).scrollTop()
+    }
+    function loadImg($img){
+        $img.attr('src',$img.attr('data-src'))
+        $img.attr('data-isloaded',1)
+    }
+</script>    
+</body>
+</html>

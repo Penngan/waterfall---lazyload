@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/2.1.2/jquery.min.js"></script>
+    <title>瀑布流</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .container {
+            /* max-width: 620px;
+            border:1px solid #ddd; */
+            /* margin:0 auto;
+            position: relative; */
+        }
+        .container>img {
+            position: absolute;
+            padding: 2px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://picsum.photos/150/150/?image=10" alt="">
+        <img src="https://picsum.photos/150/100/?image=11" alt="">
+        <img src="https://picsum.photos/150/50/?image=12" alt="">
+        <img src="https://picsum.photos/150/300/?image=13" alt="">
+        <img src="https://picsum.photos/150/200/?image=14" alt="">
+        <img src="https://picsum.photos/150/100/?image=20" alt="">
+        <img src="https://picsum.photos/150/180/?image=21" alt="">
+        <img src="https://picsum.photos/150/200/?image=22" alt="">
+        <img src="https://picsum.photos/150/300/?image=23" alt="">
+        <img src="https://picsum.photos/150/50/?image=24" alt="">
+        <img src="https://picsum.photos/150/100/?image=25" alt="">
+        <img src="https://picsum.photos/150/150/?image=30" alt="">
+        <img src="https://picsum.photos/150/300/?image=31" alt="">
+        <img src="https://picsum.photos/150/150/?image=32" alt="">
+        <img src="https://picsum.photos/150/100/?image=33" alt="">
+        <img src="https://picsum.photos/150/80/?image=34" alt="">
+        <img src="https://picsum.photos/150/120/?image=35" alt="">
+        <img src="https://picsum.photos/150/150/?image=40" alt="">
+        <img src="https://picsum.photos/150/100/?image=41" alt="">
+        <img src="https://picsum.photos/150/200/?image=42" alt="">
+        
+    </div>
+    <script>
+        var imgCount 
+        var imgHeightArray=[]
+        imgCount = Math.floor($('.container').width() / $('.container img').outerWidth(true))
+        for(var i=0; i<imgCount;i++){
+            // imgHeightArray[i] = 0
+            imgHeightArray.push(0)
+        }
+        console.log(imgHeightArray)
+        $('.container img').on('load',function(){
+            var minImgH = imgHeightArray[0]
+            var index = 0
+            for(var i=0;i<imgHeightArray.length;i++){
+                if(minImgH > imgHeightArray[i]){
+                    minImgH = imgHeightArray[i]
+                    index = i
+                }
+            }
+            $(this).css({
+                left:index * $('.container img').outerWidth(),
+                top:minImgH
+            })
+            imgHeightArray[index] += $(this).outerHeight(true)
+        })
+        $(window).on('resize',function(){
+            imgHeightArray=[]
+            imgCount = Math.floor($('.container').width() / $('.container img').outerWidth(true))
+            for(var i=0; i<imgCount;i++){
+                imgHeightArray.push(0)
+            }
+            $('.container img').each(function(){
+                var minImgH = imgHeightArray[0]
+            var index = 0
+            for(var i=0;i<imgHeightArray.length;i++){
+                if(minImgH > imgHeightArray[i]){
+                    minImgH = imgHeightArray[i]
+                    index = i
+                }
+            }
+            $(this).css({
+                left:index * $('.container img').outerWidth(),
+                top:minImgH
+            })
+            imgHeightArray[index] += $(this).outerHeight(true)
+            })
+        })
+        
+    </script>
+</body>
+</html>
